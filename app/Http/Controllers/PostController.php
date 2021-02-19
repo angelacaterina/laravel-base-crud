@@ -15,7 +15,8 @@ class PostController extends Controller
     public function index()
     {
         //
-        $posts = Post::all();
+        // $posts = Post::all();
+        $posts = Post::latest()->get();
         // dd($posts);
         return view('posts.index', compact('posts'));
     }
@@ -28,6 +29,7 @@ class PostController extends Controller
     public function create()
     {
         //
+        return view('posts.create');
     }
 
     /**
@@ -39,6 +41,18 @@ class PostController extends Controller
     public function store(Request $request)
     {
         //
+        // dd('ciao');
+        // dd($request->all());
+        // dd(request('title'), request('body'));
+
+        //VALIDARE I DATI
+
+        $post = new Post;
+        $post->title = request('title');
+        $post->body = request('body');
+        $post->save();
+
+        return redirect()->route('posts.index');
     }
 
     /**
@@ -50,6 +64,10 @@ class PostController extends Controller
     public function show(Post $post)
     {
         //
+        // dd($post);
+        // dd($post->title);
+
+        return view('posts.show', compact('post'));
     }
 
     /**
@@ -61,6 +79,9 @@ class PostController extends Controller
     public function edit(Post $post)
     {
         //
+        // dd($post);
+
+        return view('posts.edit', compact('post'));
     }
 
     /**
@@ -73,6 +94,18 @@ class PostController extends Controller
     public function update(Request $request, Post $post)
     {
         //
+         //dd($post);
+        //dd($request->all());
+
+        //VALIDARE I DATI
+
+        // MODO 1
+        // $data = $request->all();
+        // $post->update($data);
+        // MODO 2
+        $post->update($request->all());
+
+        return redirect()->route('posts.index');
     }
 
     /**
@@ -84,5 +117,9 @@ class PostController extends Controller
     public function destroy(Post $post)
     {
         //
+        // dd($post);
+
+        $post->delete();
+        return redirect()->route('posts.index');
     }
 }

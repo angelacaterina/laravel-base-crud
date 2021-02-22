@@ -27,14 +27,22 @@
                     <td>
                         <a href="{{route('posts.show', ['post'=>$value->id])}}" class="btn btn-primary">View</a>
                         <a href="{{route('posts.edit', ['post'=>$value->id])}}" class="btn btn-warning">Edit</a>
+                        <!-- Eliminazione istantanea del Post -->
+                        <form action="{{ route('posts.destroy', ['post'=> $value->id]) }}" method="post">
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit" class="btn btn-danger">Delete</button>
+                        </form>
+
+                        <!-- Eliminazine con conferma del Post -->
 
                         <!-- Button trigger modal -->
-                        <button type="button" class="btn btn-danger btn-lg" data-toggle="modal" data-target="#modelId">
+                        <!-- <button type="button" class="btn btn-danger btn-lg" data-toggle="modal" data-target="#modelId">
                           Delete
-                        </button>
+                        </button> -->
                         
                         <!-- Modal -->
-                        <div class="modal fade" id="modelId" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
+                        <!-- <div class="modal fade" id="modelId" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
                             <div class="modal-dialog" role="document">
                                 <div class="modal-content">
                                     <div class="modal-header">
@@ -48,7 +56,7 @@
                                     </div>
                                     <div class="modal-footer">
                                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                        <form action="{{route('posts.destroy', ['post'=>$value->id])}}" method="post">
+                                        <form action="{{ route('posts.destroy', ['post'=> $value->id]) }}" method="post">
                                             @csrf
                                             @method('DELETE')
                                             <button type="submit" class="btn btn-danger">Delete</button>
@@ -56,7 +64,7 @@
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        </div> -->
                     </td>
                 </tr>
                 @endforeach
